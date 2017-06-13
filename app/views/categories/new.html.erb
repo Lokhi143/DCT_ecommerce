@@ -1,0 +1,28 @@
+<h2>Add Category</h2>
+
+<!--<form action="/categories" method="post"> -->
+
+<%= form_for @category do |f| %>
+   <% if @category.errors.any? %>
+<h4>Error : </h4>
+     <ul>
+       <% @category.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+  <% end %>
+     </ul>
+<% end %>
+
+
+
+<%= f.label :Name %>
+<%= f.text_field :name %> </br>
+<%= f.submit "submit" %>
+<% end %>
+
+
+
+<!-- <form action=".." method="post">
+<label>Name</label>
+<input type="text">
+<input type="submit">
+</form> -->

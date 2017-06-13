@@ -1,0 +1,17 @@
+<h2>My Reviews: <%= @reviews.length %></h2>
+
+<%= link_to "My Reviews", reviews_path %>
+
+<% if @reviews.empty? %>
+	<p>Review not available</p>
+	<% else %>
+   <ol>
+	<% @reviews.each do |review| %>
+	 <li>
+	 	<%= review.title %>
+	 	<%= review.body %>
+	 </li>
+	
+	<% end %>
+   </ol>
+<% end %> 

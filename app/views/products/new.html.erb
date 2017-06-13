@@ -1,0 +1,50 @@
+<h2>Add Product</h2>
+
+
+<!-- name
+description
+price
+category_id
+stock
+cod_eligibility
+image_url -->
+
+<%= form_for @product do |f| %>
+<% if @product.errors.any? %>
+<h4>Error : </h4>
+     <ul>
+       <% @product.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+  <% end %>
+     </ul>
+<% end %>
+
+<%= f.label :name %></br>
+<%= f.text_field :name %></br>
+
+
+<%= f.label :category_id %></br>
+<%= f.collection_select :category_id, Category.all, :id, :formatted_name, prompt: "Select Category" %></br>
+
+
+<%= f.label :sub_category_id %></br>
+<%= f.collection_select :sub_category_id, SubCategory.all, :id, :name, prompt: "Select Category" %></br>
+
+<%= f.label :description %></br>
+<%= f.text_area :description, rows: 10, cols: 50 %></br>
+
+<%= f.label :price %></br>
+<%= f.text_field :price %></br>
+
+
+<%= f.label :stock %></br>
+<%= f.text_field :stock %></br>
+
+<%= f.label :cod_eligibility %></br>
+<%= f.check_box :cod_eligibility %></br>
+
+<%= f.label :image_url %></br>
+<%= f.text_field :image_url %></br>
+
+<%= f.submit "submit" %>
+<% end %>

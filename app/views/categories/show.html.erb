@@ -1,0 +1,20 @@
+<h2><%= @category.name %></h2>
+<% if user_signed_in? && current_user.is_admin %>
+<%= link_to "edit", edit_category_path(@category.id) %> |
+<%= link_to "destroy", category_path(@category.id), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+
+<ul>	
+	<% @category.sub_categories.each do |sub_category| %>
+		<h3><%= link_to sub_category.name.upcase %> (<%= sub_category.products.size %>)</h3>
+	<% sub_category.products.each do |product| %>
+		 <li><%= link_to product.name, product_path(product.id) %></li>
+		<% end %>
+</ul>
+  <% end %>
+		 
+		
+<%= link_to "Back" , categories_path %>
+
+
+

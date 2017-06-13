@@ -1,0 +1,64 @@
+<h2><%= @product.name %></h2>
+<% if user_signed_in? && current_user.is_admin %>
+<%= link_to "Edit", edit_product_path(@product.id) %>
+<%= link_to "destroy", product_path(@product.id), method: "delete", data:{confirm: "Are you sure?"} %>
+<% end %>
+
+<p>Price : <%= @product.price %></p>
+<p>description : <%= @product.description %></p>
+<p>stock : <%= @product.stock %></p>
+<p>cod_eligibility : <%= @product.cod_eligibility %></p>
+<p>Category ID : <%= link_to @product.category.name , category_path(@product.category_id) %></p>
+<p>Sub Category : <%= link_to @product.sub_category.name %></p><br/><br/> <!-- Category.find(@product.category_id).name -->
+
+<%= form_for @cart_line_item do |f| %>
+
+<%= f.label :quantity %><br/>
+<%= f.select :quantity, [1,2,3,4,5] %><br/>
+
+<%= f.hidden_field :product_id, value: @product.id %>
+
+<%= f.submit "Add To Cart" %>
+<% end %>
+
+<h2>Review : ( <%= @product.reviews.length %> )</h2>
+<ol>
+	<% @product.reviews.each do |review| %>
+	<li>
+		<%= review.user.email %> rated <%= review.rating %> <br/>
+		<%= review.title %> - <%= review.body %> on <%= review.created_at %> <br/>
+
+		<% if review.user_id == current_user.id %>
+		<%= link_to "delete", review_path(review.id), method: :delete, data:{confirm: "Are you sure?"} %>
+		<% end %>
+	</li>
+	<% end %>
+</ol>
+
+<h2>Add Review</h2>
+<%= form_for @review do |f| %>
+
+<%= f.label :rating %> <br/>
+<%= f.radio_button :rating, 1 %> 1
+<%= f.radio_button :rating, 2 %> 2
+<%= f.radio_button :rating, 3 %> 3
+<%= f.radio_button :rating, 4 %> 4
+<%= f.radio_button :rating, 5 %> 5
+<br/>
+
+<%= f.label :title %> <br/>
+<%= f.text_field :title %> <br/>
+
+<%= f.label :body %> <br/>
+<%= f.text_area :body %> <br/>
+
+<%= f.hidden_field :product_id, value: @product.id %>
+
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.submit %>
+<% end %>
+
+
+
+<%= link_to "Back", product_path %>
+

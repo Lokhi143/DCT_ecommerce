@@ -1,0 +1,14 @@
+<h2><%= @sub_category.name %></h2>
+<% if user_signed_in? && current_user.is_admin %>
+<%= link_to "edit", edit_sub_category_path(@sub_category.id) %> |
+<%= link_to "destroy", sub_category_path(@sub_category.id), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+<ul>
+<% @sub_category.products.each do |product| %>
+
+<li><%= link_to product.name, product_path(product.id) %></li>
+
+<% end %>
+</ul>
+
+<%= link_to "Back", sub_categories_path %>

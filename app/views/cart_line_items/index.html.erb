@@ -1,0 +1,28 @@
+<% if @cart_line_items.empty? %>
+	<p>Your cart is empty. Continue shopping <%= link_to "here", products_path %></p>
+<% else %>
+
+<table border="1">
+<thead>
+	<tr>
+		<th> #</th>
+		<th> Product</th>
+		<th> Price</th>
+		<th>Quantity</th>
+		<th>Total</th>
+	</tr>
+</thead>
+<tbody>
+	<% @cart_line_items.each_with_index do |cart_line_item,index| %>
+		<tr>
+			<td><%= index +1 %></td>
+			<td><%= cart_line_item.product.name %></td>
+			<td><%= cart_line_item.product.price %></td>
+			<td><%= cart_line_item.quantity %></td>
+			<td><%= cart_line_item.product.price * cart_line_item.quantity%></td>
+		</tr>
+		<% end %>
+</tbody>
+	
+</table>
+<% end %>
